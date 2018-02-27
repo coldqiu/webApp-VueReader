@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/all.css">
+
+        <title><%=title %></title>
+    </head>
+    <body>
+
+
+    <!--书架跳转未实现 ：这部分的代码Vue1.x改为Vue2.x -->
+    <div id="root">
+            <div class="container-wrap" id="app">
+                <% include include/header.html %>
+                <!--<transition name="index-trans">-->
+                <div class="index-trans">
+
+                    <div v-if="show_index" class="container-scroll">
+                        <!--<p>这样分解 模块 有利于维护扩展</p>-->
+                        <% include include/index-top.html %>
+                        <% include include/index-hot.html %>
+                        <% include include/index-recommend.html %>
+                        <% include include/index-male.html %>
+                        <% include include/index-female.html %>
+                        <% include include/index-free.html %>
+                        <% include include/index-bottom.html %>
+                    </div>
+                </div>
+                <!--</transition>-->
+
+                <!--<transition name="shelf-trans">-->
+                <div class="shelf-trans">
+                    <div v-if="!show_index" style='overflow:scroll'>
+                        <% include include/index-shelf.html %>
+                    </div>
+                </div>
+
+                <!--</transition>-->
+
+            </div>
+
+    </div>
+
+    </body>
+    <script src="/static/script/vue.js"></script>
+    <script src="/static/script/zepto.js"></script>
+    <script src="/static/script/pages/index.js"></script>
+</html>
+
+
+
+
+

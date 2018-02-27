@@ -1,0 +1,25 @@
+{
+  "name": "VueReader",
+  "version": "1.0.0",
+  "description": "learn:web reader site",
+  "main": "app.js",
+  "dependencies": {
+    "co-views": "^2.1.0",
+    "auto-reload": "^0.0.2",
+    "koa": "^1.2.0",
+    "ejs": "^2.4.2",
+    "koa-route": "^2.4.2",
+    "koa-views": "^4.1.0",
+    "koa-static-server": "^0.1.8",
+    "vue-router": "^2.5.2",
+    "vue-resource": "^1.3.1",
+    "mongoose": "~3.8.3",
+    "webpack": "^1.13.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "coldqiu",
+  "license": "MIT"
+}

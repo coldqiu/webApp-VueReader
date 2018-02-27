@@ -1,0 +1,47 @@
+
+<section class="channel-group">
+    <div class="channel-group__header">
+        <h2 class="channel-group__title">限时免费</h2>
+    </div>
+    <ul class="book-table">
+        <li v-for="(item,index) in free">
+           <div class="u-book">
+               <a :href='"/book?id=" +item.fiction_id' class="">
+                   <div class="book-cover">
+                       <img :src="item.data.cover" alt="">
+                       <div class="u-tagRT free-fiction"></div>
+                   </div>
+                   <div class="book-info">
+                       <h3 class="title">{{item.data.title}}</h3>
+                   </div>
+               </a>
+           </div>
+        </li>
+    </ul>
+    <a class="channel-group__footer" href="/free">更多限免佳作&gt;&gt;</a>
+</section>
+
+
+<!--<section class="channel-group">-->
+  <!--<div class="channel-group__header">-->
+      <!--<h2 class='channel-group__title'>限时免费</h2>-->
+  <!--</div>-->
+  <!--<ul class='book-table'>-->
+    <!--<li v-for='item in free'>-->
+        <!--<div class="u-book">-->
+          <!--<a :href='"/book?id="+item.fiction_id'>-->
+              <!--<div class="book-cover">-->
+                  <!--<img :alt="item.data.title" :src="item.data.cover">-->
+                  <!--<div class="u-tagRT -freefiction">-->
+
+                  <!--</div>-->
+              <!--</div>-->
+              <!--<div class="info">-->
+                <!--<h3 class='title'>{{item.title}}</h3>-->
+              <!--</div>-->
+            <!--</a>-->
+        <!--</div>-->
+    <!--</li>-->
+  <!--</ul>-->
+  <!--<a class='channel-group__footer' href='/free'>更多限免佳作&gt;</a>-->
+<!--</section>-->

@@ -1,0 +1,19 @@
+<section class='bottom-h5'>
+    <div class="bottom-header">
+      <p class='bottom-header__title'>
+          精选专题<i>热</i>
+      </p>
+    </div>
+    <div class="bottom-cover">
+      <ul class='bottom-cover__ul'>
+        <li v-for="(item,index) in topic" v-if="index < 2">
+          <a href="#">
+            <img :src="item.ad_pic_url" alt="">
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="bottom-footer">
+      <a href="/topic">更多精选&gt;&gt;</a>
+    </div>
+</section>

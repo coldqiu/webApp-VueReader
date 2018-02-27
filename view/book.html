@@ -1,0 +1,108 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" type='text/css' href="/static/css/reset.css">
+    <link rel="stylesheet" type='text/css' href="/static/css/book.css">
+    <title>书籍详情</title>
+</head>
+<div id="root">
+    <div class="container-wrap" id='app'>
+        <% include include/common-header.html %>
+        <div class="container-scroll">
+            <div class="book-page">
+                <section class='main-card'>
+                    <div class="u-book -detail" >
+                        <div class="book-cover">
+                            <img :src="d.item.cover" :alt="d.item.title">
+
+                        </div>
+                        <div class="info">
+                            <h3 class=title''>{{d.item.title}}</h3>
+                            <p class='author'>
+                                <span class='author'>{{d.item.authors}}</span>
+                            </p>
+                            <div class="u-grade">
+                                <span class='read'>{{d.item.score_count}} 条评价</span>
+                            </div>
+                            <p class='price'>价格：{{d.item.price}}月饼/千字</p>
+                            <p class='count'>
+                                字数：{{d.item.word_count}}字
+                                <span class='u-booktag -serial'>{{d.item.finish?"已完结":"连载中"}}</span>
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                <section class="main-card">
+                    <div class="book-dash">
+                        <div class="wrap">
+                            <ul class="btn-group">
+                                <li class="u-btn2" @click="readBook()">
+                                    <span class="book-dash-text"></span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="u-folder">
+                        <div class="folder-cnt" v-cloak>
+                            {{d.item.summary}}
+                        </div>
+                        <div class="folder-tail" v-cloak>
+                            <div>最新：{{d.item.latest}}</div>
+                        </div>
+                    </div>
+                </section>
+                <section class='main-card'>
+                    <div class="u-folder">
+                        <div class="folder-top">
+                            <h3>类别标签</h3>
+                        </div>
+                        <div class="folder-cnt">
+                            <ul class='m-tag -color'>
+                                <li class='u-tag'  v-for="(tag,index) in d.item.tags" v-if='index<3'>
+                                    {{tag}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+                <section class='main-card'>
+                    <div class="u-title">
+                        <h1>喜欢本书的人也喜欢</h1>
+                    </div>
+                    <div class="cnt">
+                        <ul class='book-table'>
+                            <li v-for='item in d.related'>
+                                <div class="u-book -vertical">
+                                    <div class="book-cover">
+                                        <img :src="item.cover" :alt="item.title">
+                                    </div>
+                                    <div class="info">
+                                        <h3 class='title'>{{item.title}}</h3>
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                <section class='main-card -folder'>
+                    <div class="u-title">
+                        <h1>图书信息</h1>
+                    </div>
+                    <div class="cnt">
+                        <ul class='text'>
+                            <li>版权：{{d.item.rights}}</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/static/script/vue.js"></script>
+<script src="/static/script/zepto.js"></script>
+<script src="/static/script/pages/book.js"></script>
+</html>

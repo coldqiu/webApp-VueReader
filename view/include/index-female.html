@@ -1,0 +1,68 @@
+
+<section class="channel-h5">
+    <div class="channel-h5__header">
+        <p class="channel-h5__title">
+            女生最爱
+        </p>
+    </div>
+    <div>
+        <ul class="list-h5">
+            <li v-for="item in female">
+                <div class="book-h5">
+                    <a :href='"/book?id=" +item.fiction_id' class="">
+                        <div class="book-h5__cover">
+                            <img :src="item.cover" alt="">
+                            <p class="book-h5__finish">完结</p>
+                        </div>
+                        <div class="book-h5__info">
+                            <p class="book-h5__title">{{item.title}}</p>
+                            <p class="book-h5__author">{{item.author}}</p>
+                            <p class="book-h5__summary">{{item.summary}}</p>
+                            <div class="book-h5__wrap">
+                                <div class="book-h5__tag" v-for="(tag,index) in item.tags" v-if="index<4">{{tag}}</div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="channel-h5_footer_next">
+        <a href="#">换一换</a>
+        <a href="/female">女生频道>></a>
+    </div>
+
+</section>
+
+
+<!--<section class="channel-h5">-->
+	<!--<div class="channel-h5__header">-->
+		<!--<p class="channel-h5__title">女生最爱</p>-->
+	<!--</div>-->
+  <!--<div>-->
+  	<!--<ul class="list-h5">-->
+  		<!--<li v-for='item in female'>-->
+  			<!--<div class="book-h5">-->
+					<!--<a :href='"/book?id="+item.fiction_id'>-->
+  					<!--<div class="book-h5__cover">-->
+  						<!--<img :alt="item.title" :src="item.cover">-->
+  						<!--<p class="book-h5__finish" v-show="item.finish">完结</p>-->
+  					<!--</div>-->
+  					<!--<div class="book-h5__info">-->
+  						<!--<p class="book-h5__title">{{item.title}}</p>-->
+  						<!--<p class="book-h5__author">{{item.authors}}</p>-->
+  						<!--<p class="book-h5__summary">{{item.summary}}</p>-->
+  						<!--<div class="book-h5__wrap">-->
+  							<!--<div class="book-h5__tag" v-for="(tag,index) in item.tags" v-if='index<3'>{{tag}}</div>-->
+  						<!--</div>-->
+  					<!--</div>-->
+  				<!--</a>-->
+  			<!--</div>-->
+  		<!--</li>-->
+  	<!--</ul>-->
+  <!--</div>-->
+  <!--<div class="channel-h5_footer_next">-->
+    <!--<a href="#">换一换</a>-->
+    <!--<a href="/male">女生频道>></a>-->
+  <!--</div>-->
+<!--</section>-->

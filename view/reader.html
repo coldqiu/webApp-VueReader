@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,minimal-ui">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="/static/css/reset.css">
+    <link rel="stylesheet" href="/static/common/style.css">
+    <style type="text/css">
+        html{
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        body{
+            text-align: left;
+            width: 100%;
+            overflow: hidden;
+            background: #e9dfc7;
+        }
+        .m-read-content {
+            font-size: 14px;
+            color: #555;
+            line-height: 31px;
+            padding: 15px;
+        }
+        .m-read-content h4 {
+            font-size: 20px;
+            color: #736157;
+            border-bottom: solid 1px #736357;
+            letter-spacing: 2px;
+            margin: 0 0 1em 0;
+        }
+        .m-read-content p {
+            /*letter-spacing: 1px;*/
+            /**/			text-indent: 2em;
+            margin: 0.5em 0;
+            letter-spacing: 0px;
+            line-height: 24px;
+        }
+        .m-button-bar{
+            width:70%;
+            max-width: 800px;
+            padding: 5px;
+            margin: 10px auto;
+        }
+        .u-tab{
+            height: 34px;
+            line-height: 34px;
+            margin: 10px auto;
+            border-radius: 8px;
+            border: 1px solid #858382;
+            font-size: 12px;
+            background: #000;
+            opacity: 0.9;
+        }
+        .u-tab li{
+            display: inline-block;
+            width: 49%;
+            border-right: 1px solid #858382;
+            text-align: center;
+            color: #fff;
+        }
+        /*.u-tab li:nth-child(2){*/
+        /*border-right: none;*/
+        /*}*/
+        /**/			.u-tab li:last-child{
+                            border-right: none;
+                        }
+        .top-nav{
+            position: fixed;
+            display: inline-block;
+            top: 0;
+            height: 50px;
+            width: 100%;
+            z-index: 10;
+            background: #000;
+            color: #fff;
+        }
+        .icon-arrow_lift{
+            position: absolute;
+            top: 14px;
+            left: 10px;
+            width: 23px;
+            height: 23px;
+            font-size: 20px;
+        }
+        .nav-title{
+            position: absolute;
+            top: 14px;
+            left: 35px;
+            height: 23px;
+            line-height: 23px;
+            font-size: 16px;
+        }
+        .nav-down{
+            position: fixed;
+            /*display: inline-block;*/
+            width: 100%;
+            bottom: 0;
+            height: 70px;
+            /*line-height: 70px;*/
+            color: #fff;
+            background: #000;
+            border-top: 1px solid #000;
+        }
+        ul.down-lab{
+            width: 100%;
+            height: 35px;
+        }
+        ul.down-lab-a > li {
+            display: inline-block;
+            padding-top: 15px;
+            width: 32%;
+            text-align: center;
+            font-size: 16px
+        }
+        ul.down-lab-b > li {
+            display: inline-block;
+            padding-top: 5px;
+            width: 32%;
+            text-align: center;
+            font-size: 14px
+        }
+        ul.down-lab >li.current {
+            color: #ff7800;
+        }
+        .nav-pannel-bk {
+            position: fixed;
+            bottom: 70px;
+            height: 135px;
+            width: 100%;
+            background: #000;
+            /*opacity: 0.9;*/
+            z-index: 11;
+        }
+        .nav-pannel {
+            position: fixed;
+            bottom: 70px;
+            height: 135px;
+            width: 100%;
+            background: none;
+            color: #fff;
+            z-index: 14;
+        }
+        .child-mod {
+            padding: 5px 10px;
+            margin: 15px;
+        }
+        .child-mod span {
+            display: inline-block;
+            padding-right:10px;
+            padding-left: 20px;
+        }
+        .font-size-button {
+            background: none;
+            border: 1px #8c8c8c solid;
+            color: #fff;
+            border-radius: 16px;
+            padding: 5px 40px;
+        }
+        .child-mod button:nth-child(2) {
+            margin-right: 10px;
+        }
+        .bk-container {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #e9dfc7;
+            display: inline-block;
+            vertical-align: -10px;
+        }
+        .bk-container-gray {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: gray;
+            display: inline-block;
+            vertical-align: -10px;
+        }
+        .bk-container-orange {
+            position: relative;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #fbd6b6;
+            display: inline-block;
+            vertical-align: -10px;
+        }
+        .bk-container-current {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            border: 1px #ff7800 solid;
+            display: inline-block;
+            top: -2px;
+            left: -2px;
+        }
+        .artical-art-action-mid {
+            position: fixed;
+            z-index: 13;
+            width: 100%;
+            height: 50%;
+            top: 30%;
+        }
+    </style>
+
+</head>
+<body>
+<div id="root" class="container">
+
+    <div class="m-artical-action">
+        <!--一个position:fixed布局的区域 用于触发 显示上下边栏的 事件-->
+        <div class="artical-art-action-mid" id="action-mid"></div>
+    </div>
+
+    <div id="top-nav" class="top-nav" style="display: none">
+        <div class="icon-arrow_lift"></div>
+        <div class="nav-title">返回书架</div>
+    </div>
+    <div class="fiction_chapter_title"></div>
+    <div id="fiction_container" class="m-read-content">
+        <!--<h4>永和九年，岁在癸丑</h4>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+        <!--<p>永和九年，岁在癸丑，暮春之初，会于会稽山阴之兰亭，修禊事也。群贤毕至，少长咸集。-->
+        <!--此地有崇山峻岭，茂林修竹，又有清流激湍，映带左右，引以为流觞曲水，-->
+        <!--列坐其次。虽无丝竹管弦之盛，一觞一咏，亦足以畅叙幽情。-->
+        <!--</p>-->
+    </div>
+    <div class="m-button-bar">
+        <ul class="u-tab">
+            <li id="prev_button">上一章</li>
+            <li id="next_button">下一章</li>
+        </ul>
+    </div>
+    <div class="nav-pannel-bk font-container" style="display: none"></div>
+    <div class="nav-pannel font-container" id="font-container" style="display: none">
+        <div class="child-mod">
+            <span>字号</span>
+            <button id="large-font" class="font-size-button">大</button>
+            <button id="small-font" class="font-size-button">小</button>
+        </div>
+        <div class="child-mod">
+            <span>背景</span>
+            <div class="bk-container">
+                <div class="bk-container-current"></div>
+            </div>
+            <div class="bk-container-gray">
+                <div class="bk-container-current"></div>
+            </div>
+            <div class="bk-container-orange">
+                <div class="bk-container-current"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="nav-down" style="display: none">
+        <ul class="down-lab down-lab-a">
+            <li class="icon-list"></li>
+            <li class="icon-text-color"></li>
+            <li class="icon-brightness-contrast"></li>
+        </ul>
+        <ul class="down-lab down-lab-b">
+            <li class="directory">目录</li>
+            <li class="font-family" id="font-button">字体</li>
+            <li class="night-state" id="night-button">夜间</li>
+        </ul>
+    </div>
+</div>
+<script src="static/script/zepto.js"></script>
+<script>
+    //这个$是zepto的(zepto适用于移动端的jQuery)
+    window.jQuery = $;
+</script>
+<script src="static/script/jquery.base64.js"></script>
+<script src="static/script/jquery.jsonp.js"></script>
+<script type="text/javascript">
+    // 外部闭包
+    (function() {
+        'use strict';
+        var Util = (function(){
+            var prefix = 'html5_reader_';//用于区分
+            var StorageSetter = function(key,val){
+                return localStorage.setItem(prefix + key, val);
+            };
+            var StorageGetter = function(key){
+                return localStorage.getItem(prefix + key);
+            };
+
+            var getBSONP = function(url,callback){
+                // jsonp插件提供的方法 用于解析jsonp格式的数据
+                return $.jsonp({
+                    url: url,
+                    cache: true,
+                    callback:'duokan_fiction_chapter',//这个callback 不是上面的参数
+                    success: function(result){
+                        //debugger;
+                        //result 是 duokan_fiction_chapter后面括号里的一大串
+                        var data = $.base64.decode(result);
+                        var json = decodeURIComponent(escape(data));
+                        callback(json);
+                    }
+                });
+
+            };
+            return {
+                getBSONP:getBSONP,
+                StorageSetter:StorageSetter,
+                StorageGetter:StorageGetter
+            };
+        })();
+
+        var Dom = {
+            //需要多次用到的 放这里
+            top_nav: $('#top-nav'),
+            nav_down: $('.nav-down'),
+            font_container: $('.font-container'),
+            font_button: $('#font-button'),
+            body: $('body'),
+            m_read_content: $('.m-read-content')
+        };
+        var Win = $(window);
+        var Doc = $(document);
+        var FictionContainer = $('#fiction_container');
+        var initFontSize = Util.StorageGetter('font_size');
+        initFontSize = parseInt(initFontSize);
+        if(!initFontSize){
+            initFontSize = 14;
+        }
+        FictionContainer.css('font-size',initFontSize);
+
+        var bkContainer = $('.bk-container');
+        var bkContainerGray = $('.bk-container-gray');
+        var bkContainerOrange = $('.bk-container-orange');
+
+        var bkContainerCurrent = $('.bk-container-current');
+        var readerModel;
+        var readerUI;
+        function main(){
+            //整个项目的入口函数
+            // 不清楚 ReaderModel()函数
+            readerModel = ReaderModel();
+            // FictionContainer 是Dom节点
+            readerUI = ReaderBaseFrame(FictionContainer);
+            readerModel.init(function (data) {
+                readerUI(data);
+            });
+            EventActionMid();
+
+        }
+
+        function ReaderModel(){
+            //实现和阅读器的数据交互的方法
+            var Chapter_id;   //章节id
+            var ChapterTotal; //总的章节数
+            var init = function(UIcallback){
+//						getFictionInfo(function(){
+//						    getCurChapterContent(Chapter_id,function(data){
+//						        UIcallback && UIcallback(data);
+//							});
+//						})
+                getFictionInfoPromise().then(function(d){
+//						    getCurChapterContent(Chapter_id,function(data){
+//						        UIcallback && UIcallback(data);
+//							});
+                    return getCurChapterContentPromise();
+                }).then(function(data){
+                    UIcallback && UIcallback(data);
+                });
+            };
+
+            var getFictionInfo = function(callback){
+                $.get('data/chapter.json',function(data){
+                    // 获得章节信息之后的回调
+                    Chapter_id = Util.StorageGetter('last_chapter_id');
+                    if(Chapter_id === null){
+                        Chapter_id = data.chapters[1].chapter_id;
+                    }
+                    ChapterTotal = data.chapters.length;
+                    callback && callback();
+                },'json');
+            };
+
+            var getFictionInfoPromise = function(){
+                return new Promise(function(resolve,reject){
+                    $.get('/ajax/chapter',function(data){
+                        // 获得章节信息之后的回调
+                        if(data.result === 0 ){
+                            Chapter_id = Util.StorageGetter('last_chapter_id');
+                            if(Chapter_id === null){
+                                Chapter_id = data.chapters[1].chapter_id;
+                            }
+                            ChapterTotal = data.chapters.length;
+                            resolve();
+                        }else{
+                            reject();
+                        }
+                    },'json');
+                });
+            }
+
+            var getCurChapterContent = function(chapter_id,callback){
+                $.get('data/data' + chapter_id + '.json',function(data){
+                    if(data.result === 0 ){
+                        var url = data.jsonp;
+                        Util.getBSONP(url,function(data){
+//					                debugger;
+                            callback && callback(data);
+                        });
+                    }
+                },'json');
+            };
+            var getCurChapterContentPromise = function(){
+                return new Promise(function(resolve,reject){
+//                    $.get('data/data' + Chapter_id + '.json',function(data){
+                    $.get("/ajax/chapter_data",{
+                        id: Chapter_id
+                    },function(data){
+
+                        if(data.result === 0 ){
+                            var url = data.jsonp;
+                            Util.getBSONP(url, function(data){
+                                //debugger;
+//									callback && callback(data);
+                                resolve(data);
+                            });
+                        }else{
+                            reject();
+                        }
+                    },'json');
+                });
+            }
+
+
+            var prevChapter = function(UIcallback){
+                // 上一章节
+                Chapter_id = parseInt(Chapter_id,10);
+                if(Chapter_id === 0){
+                    return;
+                }
+                //var cid = Chapter_id - 1;
+                //getCurChapterContent(cid,UIcallback);
+                Chapter_id -= 1;
+                getCurChapterContent(Chapter_id,UIcallback);
+                Util.StorageSetter('last_chapter_id',Chapter_id);
+            };
+            var nextChapter = function(UIcallback){
+                // 下一章
+                Chapter_id = parseInt(Chapter_id,10);
+                if(!Chapter_id >= ChapterTotal){
+                    return;
+                }
+                Chapter_id += 1;
+                getCurChapterContent(Chapter_id,UIcallback);
+                Util.StorageSetter('last_chapter_id',Chapter_id);
+            };
+            return {
+                // 使得外界可以调用 函数
+                init: init,
+                prevChapter: prevChapter,
+                nextChapter: nextChapter
+            }
+
+
+
+        };
+
+        function ReaderBaseFrame(container){
+            //渲染基本的UI结构
+            function parseChapterData(jsonData) {
+                var jsonObj = JSON.parse(jsonData);
+                var html = '<h4>' + jsonObj.t + '</h4>';
+//						debugger;
+                for(var i = 0; i<jsonObj.p.length; i++){
+                    html += "<p>" +jsonObj.p[i] + "</p>";
+                }
+                return html;
+            }
+            return function (data) {
+                container.html(parseChapterData(data));
+            }
+        }
+        function EventActionMid(){
+            //交互事件的绑定
+            $('#action-mid').click(function() {
+                if(Dom.top_nav.css('display') === 'none'){
+                    Dom.nav_down.show();
+                    Dom.top_nav.show();
+                }else{
+                    Dom.nav_down.hide();
+                    Dom.top_nav.hide();
+                    Dom.font_container.hide();
+                    Dom.font_button.removeClass('current');
+                }
+            });
+
+            Dom.font_button.click(function() {
+                if(Dom.font_container.css('display') === 'none'){
+                    Dom.font_container.show();
+                    Dom.font_button.addClass('current');
+                }else{
+                    Dom.font_container.hide();
+                    Dom.font_button.removeClass('current');
+                }
+            });
+            $('#night-button').click(function() {
+                //触发背景切换事件
+                Dom.body.css('background','gray');
+                Dom.m_read_content.css('color','#000');
+            });
+
+            bkContainer.click(function() {
+                Dom.body.css('background','#e9dfc7');
+                Dom.m_read_content.css('color','#555');
+            });
+            bkContainerGray.click(function() {
+                Dom.body.css('background','gray');
+                Dom.m_read_content.css('color','#000');
+            });
+            bkContainerOrange.click(function() {
+                Dom.body.css('background','#fbd6b6');
+                Dom.m_read_content.css('color','#222');
+            });
+            Win.scroll(function(){
+                Dom.nav_down.hide();
+                Dom.top_nav.hide();
+                Dom.font_container.hide();
+                Dom.font_button.removeClass('current');
+
+            });
+
+            $('#large-font').click(function() {
+                if(initFontSize > 20){
+                    return;
+                }
+                initFontSize += 1;
+                FictionContainer.css('font-size',initFontSize);
+                Util.StorageSetter('font_size',initFontSize);
+            });
+            $('#small-font').click(function() {
+                if(initFontSize < 12){
+                    return;
+                }
+                initFontSize -= 1;
+                FictionContainer.css('font-size',initFontSize);
+                Util.StorageSetter('font_size',initFontSize);
+            });
+            $('#prev_button').click(function(){
+                //获得章节数据->并将其渲染
+                readerModel.prevChapter(function(aaa){
+                    readerUI(aaa);
+                })
+            });
+            $('#next_button').click(function(){
+                readerModel.nextChapter(function(aaa){
+                    readerUI(aaa);
+                })
+            });
+        }
+
+        main();
+
+    })();
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
